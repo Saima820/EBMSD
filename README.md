@@ -1,66 +1,91 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Environment Setup for Linux.
+# 1. How to Install Nginx, MySQL, PHP (LEMP Stack) on Ubuntu 24.04
+# Nginx
+1. Install Nginx
+   $ sudo apt install nginx -y
+2. Start Nginx
+   $ sudo systemctl start nginx
+3. Enable Nginx to start at boot time.
+   $ sudo systemctl enable nginx
+4. View the Nginx service status and verify that it's active on your server.
+   $ sudo systemctl status nginx
+# MySQL
+1. Install the latest MySQL database server package on your server.
+   $ sudo apt install mysql-server -y
+2. Start the MySQL service.
+   $ sudo systemctl start mysql
+3. Enable the MySQL service to start at boot time.
+   $ sudo systemctl enable mysql
+4.View the MySQL service status and verify that it's active on the server.
+   $ sudo systemctl status mysql
+5. Start the MySQL secure installation script to disable insecure default configurations.
+   $ sudo mysql_secure_installation
+* Enter Y when prompted to enable the VALIDATE PASSWORD component that ensures strict password policies for the database users.
+6. Access the MySQL console to set up a new root user password.
+   $ sudo mysql
+7. Modify the root user with a strong password and enable mysql_native_password as the default authentication method.
+   mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'secured_password';
+8. Reload the MySQL Privilege tables to apply changes.
+   mysql> FLUSH PRIVILEGES;
+9. Exit the MySQL console.
+   mysql> exit
+10. Restart the MySQL database server.
+   $ sudo systemctl restart mysql
+# PHP
+1. Install PHP and PHP-FPM on your server.
+   $ sudo apt install php php-fpm -y
+2. Install essential PHP modules required by most dynamic applications.
+   $ sudo apt install php-mysql php-cli -y
+3. View the installed PHP version on your server.
+   $ php -v
+4. Start the PHP-FPM service depending on your installed version such as PHP 8.3.
+   $ sudo systemctl start php8.3-fpm
+5. Enable PHP-FPM to start at boot time.
+   $ sudo systemctl enable php8.3-fpm
+6. View the PHP-FPM service status and verify that it's running.
+   $ sudo systemctl status php8.3-fpm
+# Workbench
+1. Update the System
+   sudo apt update
+   sudo apt upgrade -y
+2. Install MySQL Workbench
+   sudo apt install mysql-workbench -y
+3. Verify Installation
+   mysql-workbench --version
+4. Launch MySQL Workbench
+   mysql-workbench
+* Alternate Method: Install from MySQL APT Repository
+1. Download and Add the MySQL APT Repository:
+   wget https://dev.mysql.com/get/mysql-apt-config_0.8.26-1_all.deb
+   sudo dpkg -i mysql-apt-config_0.8.26-1_all.deb
+   sudo apt update
+2. Install MySQL Workbench:
+   sudo apt install mysql-workbench-community -y
+Note: If you're getting the "unable to locate package mysql-workbench" error, it might be because the MySQL Workbench package is not available in the default Ubuntu repositories. You can resolve this by using the official MySQL APT repository.Here are the steps to install MySQL Workbench on Ubuntu:
+1. Add MySQL APT Repository
+   wget https://dev.mysql.com/get/mysql-apt-config_0.8.26-1_all.deb
+   sudo dpkg -i mysql-apt-config_0.8.26-1_all.deb
+2. Update Your Package List
+   sudo apt update
+3. Install MySQL Workbench
+   sudo apt install mysql-workbench-community
+4. Launch MySQL Workbench
+   mysql-workbench
+# Composer
+1. Install Dependencies
+   $ sudo apt update
+   $ sudo apt install php-cli unzip
+2. Download and Install Composer
+   $ cd ~
+   $ curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
+   $ HASH=`curl -sS https://composer.github.io/installer.sig`
+   $ php -r "if (hash_file('SHA384', '/tmp/composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+   $ sudo php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
+   $ composer
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+ 
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
